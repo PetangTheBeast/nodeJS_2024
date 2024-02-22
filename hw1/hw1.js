@@ -1,4 +1,4 @@
-var numberToGuess = Math.floor(Math.random() * 2) + 1;
+var numberToGuess = Math.floor(Math.random() * 10) + 1;
 var maxAttempts = 3;
 // console.log(numberToGuess)
 for (var attempt = 0; attempt < maxAttempts; attempt++) {
