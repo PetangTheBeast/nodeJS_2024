@@ -17,33 +17,30 @@ function writeCounter(value) {
     fs.writeFileSync('counter.txt', value.toString());
 }
 
+function sendResponse(res, fin_counter, endmsg){
+    res.statusCode = 200 // OK
+    res.setHeader('Content-Type', 'text/html')  
+    res.write(`<h1>Counter: ${fin_counter}!<h1>`)
+    res.end(endmsg);
+}
+
 function updateCounter(req, res){
     var counter = readCounter()
     console.log(req.url, '/increase', req.url === '/increase')
     if (req.url === '/increase') {
-        writeCounter(counter + 1);
+        fin_counter = counter + 1
+        writeCounter(fin_counter);
+        sendResponse(res, fin_counter, 'OK')
         
-        res.statusCode = 200 // OK
-        res.setHeader('Content-Type', 'text/html')  
-        res.write(`<h1>Hello, ${counter +1}!<h1>`)
-        res.end('OK');
     } else if (req.url === '/decrease') {
-        writeCounter(counter -1);
-        
-        res.statusCode = 200 // OK
-        res.setHeader('Content-Type', 'text/html')  
-        res.write(`<h1>Hello, ${counter -1}!<h1>`)
-        res.end('OK');
-    } else if (req.url === '/read') {
-        
-        res.statusCode = 200 // OK
-        res.setHeader('Content-Type', 'text/html')  
-        res.write(`<h1>Hello, ${counter}!<h1>`)
-        res.end('OK');
+        fin_counter = counter - 1
+        writeCounter(fin_counter);    
+        sendResponse(res, fin_counter, 'OK')
+    } else if (req.url === '/read') {        
+        sendResponse(res, counter, counter.toString())
         
     } else {
         res.statusCode = 404;
-        res.statusCode = 200 // OK
         res.setHeader('Content-Type', 'text/html')  
         res.end('Not Found');
     }
