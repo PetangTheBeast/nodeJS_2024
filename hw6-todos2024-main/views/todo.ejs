@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= todo.title %></title>
+</head>
+<body>
+
+  <h1><%= todo.title %></h1>
+
+  <hr>
+
+  <a href="/remove-todo/<%= todo.id %>">
+    odebrat
+  </a>
+  &nbsp;
+  <a href="/toggle-todo/<%= todo.id %>">
+    <%= todo.done ? 'hotovo' : 'nehotvo' %>
+  </a>
+  &nbsp;
+  <a>
+    <%= todo.priority %>
+  </a>
+  <hr>
+  <h2>Upravit todočko</h2>
+  <form method="post" action="/update-todo-priority/<%= todo.id %>">
+    <label for="priority">Priority:</label>
+    <select id="priority" name="priority">
+      <option value="normal">Normal</option>
+      <option value="low">Low</option>
+      <option value="high">High</option>
+    </select>
+    <button type="submit">Upravit</button>
+  </form>  
+
+  <form method="post" action="/update-todo/<%= todo.id %>">
+    
+    <input placeholder="Název todočka" name="title">
+    <button type="submit">Upravit</button>
+  </form>
+
+  <hr>
+
+  <a href="/">Zpět na seznam</a>
+
+</body>
+</html>
