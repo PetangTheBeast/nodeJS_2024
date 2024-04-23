@@ -39,7 +39,7 @@ app.get("/todo/:id", async (req, res, next) => {
 
 app.post("/add-todo", async (req, res) => {
   const todo = {
-    title: title,
+    title: req.body.title,
     done: false,
   }
 
