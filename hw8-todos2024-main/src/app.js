@@ -39,7 +39,7 @@ app.get("/todo/:id", async (req, res, next) => {
 
 app.post("/add-todo", async (req, res) => {
   const todo = {
-    title: req.body.title,
+    title: title,
     done: false,
   }
 
@@ -86,7 +86,6 @@ app.get("/remove-todo/:id", async (req, res) => {
 
 app.get("/toggle-todo/:id", async (req, res, next) => {
   const todo = await getTodoById(req.params.id)
-
   if (!todo) return next()
 
   await db("todos")
@@ -95,7 +94,6 @@ app.get("/toggle-todo/:id", async (req, res, next) => {
 
   sendTodoListToAllConnections()
   sendTodoDetailToAllConnections(todo.id)
-
   res.redirect("back")
 })
 
