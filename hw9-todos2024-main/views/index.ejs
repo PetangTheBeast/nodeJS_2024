@@ -10,9 +10,17 @@
   <h1><%= title %></h1>
 
   <% if (locals.user) { %>
-    <h2><%= user.name %></h2>
+    <div style="display: flex;">
+      <div style="padding-right: 5px;">Přihlášený uživatel: </div>
+      <div style="font-weight: bold; padding-right: 15px;"><%= user.name %></div>
+      <a href="/logout">Odhlásit se</a>
+    </div>
   <% } else { %>
-    <a href="/register">Registrovat se</a>
+    <div style="display: flex;">
+      <a href="/register" >Registrovat se</a>
+      <div style="padding-right: 5px; padding-left: 5px;">/</div>
+      <a href="/login">Přihlásit se</a>
+    </div>    
   <% } %>
 
   <div id="todoList">

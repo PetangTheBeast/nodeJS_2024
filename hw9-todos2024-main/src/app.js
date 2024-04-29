@@ -6,7 +6,7 @@ import {
   sendTodoDetailToAllConnections,
   sendTodoListToAllConnections,
 } from "./websockets.js"
-import { createUser, getUserByToken } from "./users.js"
+import { createUser, getUser, getUserByToken } from "./users.js"
 
 export const app = express()
 
@@ -36,7 +36,10 @@ const checkThatTodoBelongsToCurentUser = async (
   res,
   next
 ) => {
+
   const todo = await getTodoById(req.params.id)
+  console.log(todo)
+  console.log(res.locals.user)
   if (todo.user_id === res.locals.user.id) return next()
   res.redirect("/")
 }
@@ -132,8 +135,29 @@ app.get("/register", async (req, res) => {
   res.render("register")
 })
 
+app.get("/login", async (req, res) => {
+  res.render("login")
+})
+
+app.get("/logout", async (req, res) => {
+  res.cookie("token", null)
+  res.locals.user = null
+  res.redirect("/")
+})
+
 app.post("/register", async (req, res) => {
   const user = await createUser(
+    req.body.name,
+    req.body.password
+  )
+
+  res.cookie("token", user.token)
+
+  res.redirect("/")
+})
+
+app.post("/login", async (req, res) => {
+  const user = await getUser(
     req.body.name,
     req.body.password
   )

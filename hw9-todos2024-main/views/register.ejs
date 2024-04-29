@@ -6,10 +6,17 @@
   <title>Document</title>
 </head>
 <body>
+  <h1>Pro operace nad Todos je potřeba přihlášení.</h1>
+  <h3>Zaregistrujte se nebo přihlašte se ke svému účtu.</h3>
   <form method="post" action="/register">
     <input name="name" type="text">
     <input name="password" type="password">
     <button type="submit">Registrovat se</button>
   </form>
+  <div style="display: flex; padding-top: 30px;">
+    <div style="padding-right: 15px;">Již mám účet: </div>
+    <a href="/login">Přihlásit se</a>
+  </div>
+  
 </body>
 </html>
